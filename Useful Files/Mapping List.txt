@@ -1,0 +1,54 @@
+import 'package:flutter/material.dart';
+import './transaction.dart';
+
+void main() {
+  runApp(HomePage());
+}
+
+class HomePage extends StatelessWidget {
+  // final List<Transaction> transaction = [
+  //   Transaction(
+  //       id: "1", title: "University Bag", amount: 2000, date: DateTime.now()),
+  //       Transaction(
+  //       id: "2", title: "Mobile Pubg Controller", amount: 347, date: DateTime.now())
+  // ];
+  final _Transaction = [
+    {
+      'id': 1,
+      'title': 'University Bag',
+      'amount': 2000,
+      'date': DateTime.now()
+    },
+    {
+      'id': 2,
+      'title': 'Mobile Pubg Controller',
+      'amount': 347,
+      'date': DateTime.now()
+    },
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+          appBar: AppBar(
+            title: Text('Personal Expense'),
+            backgroundColor: Colors.orange,
+          ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Card(
+                color: Colors.blue,
+                child: Container(width: double.infinity, child: Text('Chart')),
+                elevation: 5,
+              ),
+              ...(_Transaction as List<Map<String, Object>>).map((tx) {
+                return Card(child: Text(tx['title']));
+              }).toList()
+            ],
+          )),
+    );
+  }
+}

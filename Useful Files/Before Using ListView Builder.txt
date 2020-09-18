@@ -1,0 +1,53 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+
+
+class TransactionList extends StatelessWidget {
+  final List transaction;
+  TransactionList(this.transaction);
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: transaction.map((tx) {
+        return Column(
+          children: [
+            Row(
+              children: [
+                Container(
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Colors.purple[400],
+                            width: 2.0,
+                            style: BorderStyle.solid)),
+                    child: Text('\$${tx.amount}',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.purple[400],
+                            fontWeight: FontWeight.bold))),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: Text(
+                        tx.title,
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Text(
+                      DateFormat.yMMMMEEEEd().format(tx.date),
+                      style: TextStyle(color: Colors.grey[500]),
+                    )
+                  ],
+                )
+              ],
+            )
+          ],
+        );
+      }).toList(),
+    );
+  }
+}

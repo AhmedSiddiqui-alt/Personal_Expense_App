@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+class TransactionList extends StatelessWidget {
+  final List transaction;
+  TransactionList(this.transaction);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        height: 400,
+        child: transaction.isEmpty
+            ? Column(
+                children: <Widget>[
+                  Text('No Transactions'),
+                  SizedBox(height: 40),
+                  Container(
+                    height: 200,
+                  child:Image.asset('assets/images/waiting.png',fit: BoxFit.cover,),
+                  )
+                  
+                ],
+              )
+            : ListView.builder(
+                itemBuilder: (ctx, index) {
+                  return Column(children: [
+                    Row(
+                      children: [
+                        Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 15),
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.purple[400],
+                                    width: 2.0,
+                                    style: BorderStyle.solid)),
+                            child: Text(
+                                '\$${transaction[index].amount.toStringAsFixed(2)}',
+                                style: Theme.of(context).textTheme.title)),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              child: Text(
+                                transaction[index].title,
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Text(
+                                DateFormat.yMMMMEEEEd()
+                                    .format(transaction[index].date),
+                                style: TextStyle(color: Colors.grey))
+                          ],
+                        )
+                      ],
+                    )
+                  ]);
+                },
+                itemCount: transaction.length,
+              ));
+  }
+}
